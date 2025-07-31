@@ -114,11 +114,17 @@ sudo rm -f /etc/motd
 sudo systemctl enable NetworkManager tlp nftables
 sudo nft -f /etc/nftables.conf
 
-echo "Setup complete. Reboot recommended."
-echo
-echo "Manual bootloader replacement:"
-echo "sudo apt install systemd-boot && sudo bootctl install"
-echo "sudo apt purge --allow-remove-essential grub* shim-signed ifupdown nano os-prober vim-tiny zutty"
+echo "Installing systemd-boot..."
+sudo apt install -y systemd-boot
+sudo bootctl install
 
-read -p "Reboot now? [y/N] " -n 1 -r
-[[ $REPLY =~ ^[Yy]$ ]] && sudo reboot
+# Remove GRUB
+sudo apt purge --allow-remove-essential -y grub* shim-signed ifupdown nano os-prober vim-tiny zutty
+sudo apt autoremove --purge -y
+
+echo "Enter GRUB boot ID to delete (check efibootmgr output):"
+sudo efibootmgr
+read -r BOOT_ID
+sudo efibootmgr -b "$BOOT_ID" -B
+
+echo "Setup complete. Reboot recommended."
