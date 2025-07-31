@@ -43,6 +43,8 @@ BASE_DIR="$HOME/base_tty"
     mv "$BASE_DIR"/.{vimrc,bashrc,blerc} "$HOME/"
     sudo mv "$BASE_DIR/.root/.config" /root/
     sudo cp "$HOME"/.{bashrc,vimrc,blerc} /root/
+    sudo cp "BASE_DIR/tlp.conf" /etc/
+    sudo rm -rf "BASE_DIR/.root"
 }
 
 # Setup zram swap
