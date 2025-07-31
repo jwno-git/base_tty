@@ -1,0 +1,75 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+  "modules": [ 
+    "break",
+    {
+      "type": "title",
+      "format": "{#35}╭ {#1}{#97}{user-name} {#35}──────────"
+    },
+    {
+      "type": "host",
+      "key": "{#35}│ {#96}→ ",
+      "keyColor": ""
+    },
+    {
+      "type": "kernel",
+      "key": "{#35}│ {#96}→ ",
+      "keyColor": ""
+    },
+    {
+      "type": "os",
+      "key": "{#35}│ {#96}→ ",
+      "keyColor": ""
+    },
+    {
+      "type": "title",
+      "format": "{#35}╰──────────────────────────"
+    },
+     {
+      "type": "title",
+      "format": "{#35}╭──────────────────────────"
+    },   
+    {
+      "type": "packages",
+      "key": "{#35}│ {#96}→ ",
+      "keyColor": ""
+    },
+    {
+      "type": "disk",
+      "key": "{#35}│ {#96}→ ",
+      "keyColor": ""
+    },
+    {
+      "type": "cpu",
+      "key": "{#35}│ {#96}→ ",
+      "keyColor": "",
+      "temp": true
+    },
+    {
+      "type": "cpuusage",
+      "key": "{#35}│ {#96}→ ",
+      "keyColor": ""
+    },
+    {
+      "type": "gpu",
+      "key": "{#35}│ {#96}→ ",
+      "keyColor": "",
+      "temp": true
+    },
+    {
+      "type": "swap",
+      "key": "{#35}│ {#96}→ ",
+      "keyColor": ""
+    },
+    {
+      "type": "memory",
+      "key": "{#35}│ {#96}→ ",
+      "keyColor": ""
+    },
+    {
+      "type": "title",
+      "format": "{#35}╰───────────────────────────────────────────"
+    },
+    "break"
+  ]
+}
