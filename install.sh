@@ -7,11 +7,6 @@ set -e
 # Check user
 [[ $EUID -eq 0 ]] && { echo "Run as user, not root"; exit 1; }
 
-# Check OS
-grep -q "trixie" /etc/debian_version || { echo "Warning: Not Debian Trixie"; read -p "Continue? [y/N] " -n 1 -r; [[ ! $REPLY =~ ^[Yy]$ ]] && exit 1; }
-
-echo "Setting up minimal Debian Trixie desktop..."
-
 # Update system
 sudo apt update && sudo apt upgrade -y
 
@@ -20,6 +15,7 @@ sudo apt install -y \
     git \
     build-essential \
     curl \
+    gawk \
     wget \
     btop \
     fastfetch \
@@ -35,17 +31,18 @@ sudo apt install -y \
     zstd
 
 # Create directories
-mkdir -p "$HOME"/{src,.local/bin,.config}
+mkdir -p $HOME/src
+mkdir -p $HOME/.local/bin
 
-# Move configs
-BASE_DIR="$HOME/base_tty"
-[[ -d "$BASE_DIR" ]] && {
-    mv "$BASE_DIR"/.{vimrc,bashrc,blerc} "$HOME/"
-    sudo mv "$BASE_DIR/.root/.config" /root/
-    sudo cp "$HOME"/.{bashrc,vimrc,blerc} /root/
-    sudo cp "BASE_DIR/tlp.conf" /etc/
-    sudo rm -rf "BASE_DIR/.root"
-}
+# Move Configs
+mv $HOME/base_tty/.vimrc $HOME/
+mv $HOME/base_tty/.bashrc $HOME/
+mv $HOME/base_tty/.blerc $HOME/
+mv $HOME/base_tty/.config $HOME/
+sudo mv $HOME/base_tty/.root/.config /root/
+sudo cp $HOME/.bashrc /root/
+sudo cp $HOME/.vimrc /root/
+sudo cp $HOME/base_tty/tlp.conf /etc/
 
 # Setup zram swap
 sudo modprobe zram num_devices=1
@@ -80,7 +77,7 @@ sudo systemctl enable --now zram-swap.service
 # Install BLE.sh
 cd "$HOME/src"
 git clone https://github.com/akinomyoga/ble.sh.git
-cd ble.sh && make && sudo make install PREFIX=/usr/local
+make -C ble.sh install PREFIX=~/.local
 
 # Configure network
 sudo sed -i 's/managed=false/managed=true/' /etc/NetworkManager/NetworkManager.conf
