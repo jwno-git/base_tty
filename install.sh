@@ -12,7 +12,6 @@ sudo apt update && sudo apt upgrade -y
 
 # Install essentials
 sudo apt install -y \
-    git \
     build-essential \
     curl \
     gawk \
