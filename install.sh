@@ -15,6 +15,7 @@ sudo apt install -y \
     build-essential \
     curl \
     gawk \
+    gpg \
     wget \
     btop \
     fastfetch \
